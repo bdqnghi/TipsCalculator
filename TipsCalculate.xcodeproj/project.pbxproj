@@ -12,6 +12,7 @@
 		797A066C1BE949290057C81B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 797A066A1BE949290057C81B /* Main.storyboard */; };
 		797A066E1BE949290057C81B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 797A066D1BE949290057C81B /* Assets.xcassets */; };
 		797A06711BE949290057C81B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 797A066F1BE949290057C81B /* LaunchScreen.storyboard */; };
+		79C708731BEB3A76005C3C8F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C708721BEB3A76005C3C8F /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		797A066D1BE949290057C81B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		797A06701BE949290057C81B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		797A06721BE949290057C81B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79C708721BEB3A76005C3C8F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				797A066D1BE949290057C81B /* Assets.xcassets */,
 				797A066F1BE949290057C81B /* LaunchScreen.storyboard */,
 				797A06721BE949290057C81B /* Info.plist */,
+				79C708721BEB3A76005C3C8F /* SettingViewController.swift */,
 			);
 			path = TipsCalculate;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			files = (
 				797A06691BE949290057C81B /* ViewController.swift in Sources */,
 				797A06671BE949290057C81B /* AppDelegate.swift in Sources */,
+				79C708731BEB3A76005C3C8F /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

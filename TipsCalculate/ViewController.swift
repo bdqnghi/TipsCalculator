@@ -9,27 +9,43 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet var mainView: UIView!
+    
     let BILL_AMOUNT_KEY = "billed"
+    let DEFAULT_PERCENTAGE = "defaultPercent"
+    
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var amountLabel: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var percentSlider: UISlider!
     @IBOutlet weak var percentLabel: UILabel!
+    
     var percentValue: Float!
     let defaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        let defaultPercent = defaults.integerForKey(DEFAULT_PERCENTAGE)
+        if defaultPercent != 0 {
+            updatePercentSegmentValue(defaultPercent)
+            updatePercentSliderValue()
+        }
         let billedAmount = defaults.floatForKey(BILL_AMOUNT_KEY)
         calculateFees(billedAmount)
         amountLabel.becomeFirstResponder()
       
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        let defaultPercent = defaults.integerForKey(DEFAULT_PERCENTAGE)
+        if defaultPercent != 0 {
+            updatePercentSegmentValue(defaultPercent)
+            updatePercentSliderValue()
+        }
 
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -71,16 +87,37 @@ class ViewController: UIViewController {
         amountLabel.backgroundColor = newBackgroundColor
         
         percentLabel.text = String(Int(value))+"%"
-        if(percentSlider.value == 10){
+        
+        updatePercentSegmentValue(Int(percentSlider.value))
+        calculateFees(NSString(string: amountLabel.text!).floatValue)
+    }
+    
+    func updatePercentSegmentValue(value: Int){
+        if(value == 10){
             tipControl.selectedSegmentIndex = 0
         }
-        if(percentSlider.value == 15){
+        if(value == 15){
             tipControl.selectedSegmentIndex = 1
         }
-        if(percentSlider.value == 20){
-           tipControl.selectedSegmentIndex = 2
+        if(value == 20){
+            tipControl.selectedSegmentIndex = 2
         }
-        calculateFees(NSString(string: amountLabel.text!).floatValue)
+
+    }
+    
+    func updatePercentSliderValue(){
+        if(tipControl.selectedSegmentIndex == 0){
+            percentSlider.setValue(10, animated: true)
+            percentLabel.text = String("10%")
+        }
+        if(tipControl.selectedSegmentIndex == 1){
+            percentSlider.setValue(15, animated: true)
+            percentLabel.text = String("15%")
+        }
+        if(tipControl.selectedSegmentIndex == 2){
+            percentSlider.setValue(20, animated: true)
+            percentLabel.text = String("20%")
+        }
     }
     
     @IBAction func onSegmentChanged(sender: AnyObject) {
