@@ -9,7 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
+    @IBOutlet var mainView: UIView!
+    let BILL_AMOUNT_KEY = "billed"
     @IBOutlet weak var amountLabel: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
@@ -17,13 +19,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var percentSlider: UISlider!
     @IBOutlet weak var percentLabel: UILabel!
     var percentValue: Float!
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        tipLabel.text = "$0.00"
-       
-        totalLabel.text = "$0.00"
+        let billedAmount = defaults.floatForKey(BILL_AMOUNT_KEY)
+        calculateFees(billedAmount)
+        amountLabel.becomeFirstResponder()
+      
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,26 +36,39 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onBillChanged(sender: AnyObject) {
-        calculateFees()
+        calculateFees(NSString(string: amountLabel.text!).floatValue)
     }
+    
     func roundValue(value: Float) -> Float{
         return roundf(value) * 1;
     }
     
-    func calculateFees() {
-        let amount : Float = NSString(string: amountLabel.text!).floatValue
+    func calculateFees(amount: Float) {
+     
         let tip = (amount * Float(percentSlider.value))/100
         let total = amount + tip
         
         tipLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f",total)
+        amountLabel.text = String(Int(amount))
+        NSUserDefaults.standardUserDefaults().setObject(amount, forKey: BILL_AMOUNT_KEY)
     }
 
     
     @IBAction func onSliderChangedValue(sender: AnyObject)
     {
-        var value = roundf(percentSlider.value)
+        let value = roundf(percentSlider.value)
         percentSlider.setValue(value, animated: true)
+        
+        var newBackgroundColor : UIColor
+        
+        let sliderValue = CGFloat(percentSlider.value/30)
+        // changes the newBackgroundColor variable to new color values.
+        newBackgroundColor = UIColor(red: sliderValue, green: sliderValue-0.4, blue: sliderValue+0.7, alpha: sliderValue+0.4)
+        
+        // changes the background color
+        mainView.backgroundColor = newBackgroundColor
+        amountLabel.backgroundColor = newBackgroundColor
         
         percentLabel.text = String(Int(value))+"%"
         if(percentSlider.value == 10){
@@ -63,7 +80,7 @@ class ViewController: UIViewController {
         if(percentSlider.value == 20){
            tipControl.selectedSegmentIndex = 2
         }
-        calculateFees()
+        calculateFees(NSString(string: amountLabel.text!).floatValue)
     }
     
     @IBAction func onSegmentChanged(sender: AnyObject) {
@@ -79,7 +96,7 @@ class ViewController: UIViewController {
             percentSlider.setValue(20, animated: true)
             percentLabel.text = String("20%")
         }
-        calculateFees()
+        calculateFees(NSString(string: amountLabel.text!).floatValue)
         
     }
     

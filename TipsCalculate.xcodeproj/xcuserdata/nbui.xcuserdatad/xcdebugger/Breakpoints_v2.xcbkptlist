@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TipsCalculate/ViewController.swift"
-            timestampString = "468323170.329259"
+            timestampString = "468357409.28806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "onBillChanged(_:)"
             landmarkType = "5">
          </BreakpointContent>
